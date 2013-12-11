@@ -1,8 +1,9 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+      xmlns:simpleftpclient="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_refresh"
+        android:id="@+id/action_add_server"
         android:orderInCategory="100"
-        android:showAsAction="always"
+        simpleftpclient:showAsAction="always"
         android:icon="@android:drawable/ic_menu_add"
         android:title="Refresh"/>
   

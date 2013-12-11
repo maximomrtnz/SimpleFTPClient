@@ -4,5 +4,11 @@
     <string name="app_name">SimpleFTP</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+    <string name="host">Host</string>
+    <string name="port">Port</string>
+    <string name="user">User</string>
+    <string name="password">Password</string>
+    
 </resources>
