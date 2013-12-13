@@ -10,7 +10,7 @@ public class ServerFTP {
 	public String getHost() {
 		return host;
 	}
-	public void setAddress(String host) {
+	public void setHost(String host) {
 		this.host = host;
 	}
 	public int getPort() {

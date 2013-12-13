@@ -6,4 +6,10 @@ public class Configuration {
  
     // Database Name
     public static final String DATABASE_NAME = "SimpleFTPClient";
+    
+    //Requests codes
+    public static final int REQUEST_CODE_CRUDSERVERFTP = 0;
+    
+    //Custom results errors
+    public static final int RESULT_ERROR = 2;
 }
