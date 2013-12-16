@@ -2,7 +2,7 @@ package com.example.simpleftp.activities;
 
 import com.example.simpleftp.Configuration;
 import com.example.simpleftp.R;
-import com.example.simpleftp.entities.ServerFTP;
+import com.example.simpleftp.entities.FTPServer;
 import com.example.simpleftp.storage.CRUDServersFTP;
 
 import android.content.Intent;
@@ -53,7 +53,7 @@ public class CRUDServerFTPActivity extends ActionBarActivity{
 		EditText serverFTPPassword = (EditText)findViewById(R.id.editTextServerFTPPassword);
 		
 		//Create an instance of ServerFTP Class, and then set date
-		ServerFTP serverFTP = new ServerFTP();
+		FTPServer serverFTP = new FTPServer();
 		serverFTP.setHost(serverFTPHost.getText().toString());
 		serverFTP.setPort(Integer.parseInt(serverFTPPort.getText().toString()));
 		serverFTP.setUser(serverFTPUser.getText().toString());
@@ -66,7 +66,7 @@ public class CRUDServerFTPActivity extends ActionBarActivity{
 		if(lastId != -1){
 			//Return result from caller activity
 			Intent intent = getIntent();
-			intent.putExtra("lastId", lastId);
+			intent.putExtra(Configuration.FTP_SERVER_LAST_ID, lastId);
 			setResult(RESULT_OK, intent);
 		}else{
 			//An error occurred, so return RESULT_CANCELED

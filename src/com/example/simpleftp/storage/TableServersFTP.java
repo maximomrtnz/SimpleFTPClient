@@ -18,4 +18,8 @@ public class TableServersFTP {
 		            + COLUMN_PASSWORD + " TEXT" + ")";
     
     public static String DROP_TABE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+    
+    public static String QUERY_GET_ALL = "SELECT * FROM "+TABLE_NAME;
+    
+    public static String QUERY_GET_SINGLE_ITEM = "SELECT * FROM "+TABLE_NAME+" WHERE "+COLUMN_ID+" = ";
 }

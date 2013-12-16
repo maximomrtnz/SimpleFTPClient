@@ -1,10 +1,13 @@
 package com.example.simpleftp.storage;
 
+import java.util.ArrayList;
+
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.simpleftp.entities.ServerFTP;
+import com.example.simpleftp.entities.FTPServer;
 
 public class CRUDServersFTP {
 	
@@ -15,7 +18,7 @@ public class CRUDServersFTP {
 	}
 	
 	//Create
-	public long create(ServerFTP serverFTP){
+	public long create(FTPServer serverFTP){
 		//Create an instance of DataBaseHelper
 		DataBaseHelper dataBaseHelper = new DataBaseHelper(this.context);
 		
@@ -32,22 +35,83 @@ public class CRUDServersFTP {
 		//Finally, insert Server FTP data
 		long lastId = db.insert(TableServersFTP.TABLE_NAME, null, values);
 		
+		//Close Data Base connection
+		dataBaseHelper.close();
+		
 		//Return the lastId, if and error occurred We return -1
 		return lastId;
 	}
 	
 	//Read
-	public ServerFTP read(int id){
-		return null;
+	public FTPServer read(long id){
+		//Create an instance of DataBaseHelper
+		DataBaseHelper dataBaseHelper = new DataBaseHelper(this.context);
+						
+		//Get SQLite DataBase from DataBase helper
+		SQLiteDatabase db = dataBaseHelper.getReadableDatabase();
+				
+		//Return Query result inside a Cursor 
+		Cursor c = db.rawQuery(TableServersFTP.QUERY_GET_SINGLE_ITEM+id, null);
+		
+		FTPServer ftpServer = null;
+		
+		if (c != null){
+	        c.moveToFirst();
+	        ftpServer = new FTPServer();
+	        ftpServer.setId(c.getInt(c.getColumnIndex(TableServersFTP.COLUMN_ID)));
+	        ftpServer.setHost(c.getString(c.getColumnIndex(TableServersFTP.COLUMN_HOST)));
+	        ftpServer.setPort(c.getInt(c.getColumnIndex(TableServersFTP.COLUMN_PORT)));
+	        ftpServer.setUser(c.getString(c.getColumnIndex(TableServersFTP.COLUMN_USER)));
+	        ftpServer.setPassword(c.getString(c.getColumnIndex(TableServersFTP.COLUMN_PASSWORD)));
+		}
+	 
+	    return ftpServer;
+			 
 	}
 	
 	//Update
-	public void update(ServerFTP serverFTP){
+	public void update(FTPServer serverFTP){
 		
 	}
 	
 	//Delete
-	public void delete(ServerFTP serverFTP){
+	public void delete(FTPServer serverFTP){
 		
 	}
+	
+	//Read All FTPServers
+	public ArrayList<FTPServer> readAll(){
+		ArrayList<FTPServer> ftpServers = new ArrayList<FTPServer>();
+		
+		//Create an instance of DataBaseHelper
+		DataBaseHelper dataBaseHelper = new DataBaseHelper(this.context);
+				
+		//Get SQLite DataBase from DataBase helper
+		SQLiteDatabase db = dataBaseHelper.getReadableDatabase();
+		
+		//Return Query result inside a Cursor 
+	    Cursor c = db.rawQuery(TableServersFTP.QUERY_GET_ALL, null);
+	 
+	    // Looping through all rows and adding to list
+	    if (c.moveToFirst()) {
+	        do {
+	            FTPServer ftpServer = new FTPServer();
+	            ftpServer.setId(c.getInt((c.getColumnIndex(TableServersFTP.COLUMN_ID))));
+	            ftpServer.setHost((c.getString(c.getColumnIndex(TableServersFTP.COLUMN_HOST))));
+	            ftpServer.setPort((c.getInt(c.getColumnIndex(TableServersFTP.COLUMN_PORT))));
+	            ftpServer.setUser((c.getString(c.getColumnIndex(TableServersFTP.COLUMN_USER))));
+	            ftpServer.setUser((c.getString(c.getColumnIndex(TableServersFTP.COLUMN_PASSWORD))));
+	            //Adding to FTPServers's list
+	            ftpServers.add(ftpServer);
+	        } while (c.moveToNext());
+	    }
+	    //Close cursor
+	    c.close();
+	    
+	    //Close Data Base Connection
+	    dataBaseHelper.close();
+	    
+	    return ftpServers;
+	}
+	
 }

@@ -12,4 +12,7 @@ public class Configuration {
     
     //Custom results errors
     public static final int RESULT_ERROR = 2;
+    
+    //PUT EXTRA CONSTANTS
+    public static final String FTP_SERVER_LAST_ID = "LastId";
 }
